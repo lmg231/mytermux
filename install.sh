@@ -62,30 +62,6 @@ n*|N*)
         ;;
 esac
 
-printf "现在在用哪个shell？1.bash,2.zsh"
-read -rp "请输入数字：" YS
-printf '是否改变光标样式？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        if [ $YS=="1" ];then
-        echo "printf '\e[6 q'" >> ~/.bashrc
-        echo "完成"
-        elif [ $YS=="2" ];then
-        echo "printf '\e[6 q'" >> ~/.zshrc
-        echo "完成"
-        else 
-        echo "输入错误,跳过"
-        fi
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
-
 printf '是否安装常用软件包？vim,git,wget,curl,neofetch[Y/n]'
 read -r opt
 case $opt in
@@ -133,6 +109,45 @@ y*|Y*|"")
         wait
         npm install -g browser-sync
         wait
+        echo "安装完成,你可以在网页文件夹使用browser-sync快捷建立动态刷新的web服务器"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+printf "现在在用哪个shell？涉及到修改光标样式和添加别名 1.bash,2.zsh"
+read -rp "请输入数字：" YS
+
+printf '是否改变光标样式？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        if [ $YS=="1" ];then
+        echo "printf '\e[6 q'" >> ~/.bashrc
+        echo "完成"
+        elif [ $YS=="2" ];then
+        echo "printf '\e[6 q'" >> ~/.zshrc
+        echo "完成"
+        else 
+        echo "输入错误,跳过"
+        fi
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+printf '是否为当前shell添加browser-sync...的web别名？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
         if [ $YS=="1" ];then
         echo ' alias web="browser-sync start --server --files "**"" ' >> ~/.bashrc
         elif [ $YS=="2" ];then
@@ -140,7 +155,7 @@ y*|Y*|"")
         else 
         echo '输入错误，跳过'
         fi
-        echo "安装完成,你可以在网页文件夹使用browser-sync快捷建立动态刷新的web服务器,已添加alias别名web"
+        echo "完成"
         ;;
 n*|N*)
         echo "跳过"
@@ -149,6 +164,7 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
+
 
 printf '是否导入vim配置？[Y/n]'
 read -r opt
@@ -156,7 +172,7 @@ case $opt in
 y*|Y*|"")
         git clone https://github.com/lmg231/myvim.git ~/myvim
         wait
-        echo "下载完成，请退出脚本后手动进入仓库执行"
+        echo "下载完成，请退出脚本后手动进入myvim文件夹执行bash install"
         ;;
 n*|N*)
         echo "跳过"
@@ -166,19 +182,5 @@ n*|N*)
         ;;
 esac
 
-
-printf '是否启用oh-my-termux（需要良好外网环境）？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        echo "请执行下面语句"
-        echo 'sh -c "$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)"'
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
+termux-setup-storage
 echo "脚本执行完毕,谢谢"
