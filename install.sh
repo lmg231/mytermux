@@ -59,6 +59,7 @@ y*|Y*|"")
         echo "完成"
         else 
         echo "输入错误,跳过"
+        fi
         ;;
 n*|N*)
         echo "跳过"
@@ -150,10 +151,11 @@ y*|Y*|"")
         npm install -g browser-sync
         wait
         if [ $YS=="1" ];then
-        echo " alias web='browser-sync start --server --files "**"' " >> ~/.bashrc
+        echo ' alias web="browser-sync start --server --files "**"" ' >> ~/.bashrc
         elif [ $YS=="2" ];then
-        echo " alias web='browser-sync start --server --files "**"' " >> ~/.zshrc
+        echo ' alias web="browser-sync start --server --files "**"" ' >> ~/.zshrc
         else 
+        fi
         ;;
         echo "安装完成,你可以在网页文件夹使用browser-sync快捷建立动态刷新的web服务器,已添加alias别名web"
         ;;
