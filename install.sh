@@ -1,3 +1,88 @@
+printf '是否修改键位？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        echo -e "extra-keys-style = all\nextra-keys = [[ESC,{key: 'BACKSLASH',popup: '^'},{key: '[',popup: '{'},{key: ']',popup: '}'},{key: UP,popup: PGUP},{key: DOWN,popup: PGDN},{key: '$',popup: '\`'}], [CTRL,TAB,{key: '<',popup: 'APOSTROPHE'},{key: '>',popup: 'QUOTE'},{key:LEFT,popup: HOME},{key: RIGHT,popup: END},{key: '%',popup: '/'}]]" >> ~/.termux/termux.properties
+        echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+printf '是否安装字体Meslo NerdFont？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        mv font.ttf ~/.termux
+        echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+printf '是否修改启动提示语？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        echo -e "Welcome to termux!" > $PREFIX/etc/motd
+        echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+        ;;
+esac
+printf "现在在用哪个shell？1.bash,2.zsh"
+read -rp "请输入数字：" YS
+printf '是否改变光标样式？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        if [ $YS=="1" ];then
+        echo "printf '\e[6 q'" >> ~/.bashrc
+        echo "完成"
+        elif [ $YS=="2" ];then
+        echo "printf '\e[6 q'" >> ~/.zshrc
+        echo "完成"
+        else 
+        echo "输入错误,跳过"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
+printf '是否修改键位？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        echo -e "extra-keys-style = all\nextra-keys = [[{key: 'ESC', popup: ':'}, {key: 'TAB', popup: '!'},CTRL, {key: 'UP', popup: 'APOSTROPHE'}, {key: 'DOWN', popup: 'QUOTE'}, {key: 'LEFT', popup: 'HOME'}, {key: 'RIGHT', popup: 'END'}],[{key: '/', popup: '?'}, {key: '|', popup: '&'},{key: 'BACKSLASH',popup: '\`'}, {key: '<', popup: '>'}, {key: '%', popup: ';'}, {key: '[', popup: '{'}, {key: ']', popup: '}'}]]" >> .termux/termux.properties
+        echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
 printf '是否切换清华源？(如果是请一路回车)[Y/n]'
 read -r opt
 case $opt in
@@ -51,7 +136,8 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
-printf '是否安装nodejs相关软件？nodejs-lts eslint browser-sync[Y/n]'
+
+printf '是否安装nodejs及相关软件？eslint browser-sync[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
@@ -63,8 +149,13 @@ y*|Y*|"")
         wait
         npm install -g browser-sync
         wait
-        echo '在对应目录下执行，获取网页动态刷新效果：browser-sync start --server --files "**"'
-        echo "安装完成"
+        if [ $YS=="1" ];then
+        echo " alias web='browser-sync start --server --files "**"' " >> ~/.bashrc
+        elif [ $YS=="2" ];then
+        echo " alias web='browser-sync start --server --files "**"' " >> ~/.zshrc
+        else 
+        ;;
+        echo "安装完成,你可以在网页文件夹使用browser-sync快捷建立动态刷新的web服务器,已添加alias别名web"
         ;;
 n*|N*)
         echo "跳过"
@@ -73,40 +164,19 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
-printf '是否改变光标样式？[Y/n]'
+
+printf '是否为browser-sync添加wese别名？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
+        if [ $YS=="1" ];then
         echo "printf '\e[6 q'" >> ~/.bashrc
         echo "完成"
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
-printf '是否修改键位？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        echo -e "extra-keys-style = all\nextra-keys = [[ESC,{key: 'BACKSLASH',popup: '^'},{key: '[',popup: '{'},{key: ']',popup: '}'},{key: UP,popup: PGUP},{key: DOWN,popup: PGDN},{key: '$',popup: '\`'}], [CTRL,TAB,{key: '<',popup: 'APOSTROPHE'},{key: '>',popup: 'QUOTE'},{key:LEFT,popup: HOME},{key: RIGHT,popup: END},{key: '%',popup: '/'}]]" >> ~/.termux/termux.properties
+        elif [ $YS=="2" ];then
+        echo "printf '\e[6 q'" >> ~/.zshrc
         echo "完成"
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
-printf '是否修改启动提示语？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        echo -e "Welcome to termux!" > $PREFIX/etc/motd
-        echo "完成"
+        else 
+        echo "输入错误,跳过"
         ;;
 n*|N*)
         echo "跳过"
@@ -120,7 +190,7 @@ printf '是否导入vim配置？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
-        git clone https://github.com/lmg231/myvim.git ~
+        git clone https://github.com/lmg231/myvim.git ~/myvim
         wait
         echo "下载完成，请退出脚本后手动进入仓库执行"
         ;;
@@ -132,20 +202,7 @@ n*|N*)
         ;;
 esac
 
-printf '是否安装字体Meslo NerdFont？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        mv font.ttf ~/.termux
-        echo "完成"
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
+
 printf '是否启用oh-my-termux（需要良好外网环境）？[Y/n]'
 read -r opt
 case $opt in
