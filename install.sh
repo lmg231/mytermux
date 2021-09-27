@@ -43,8 +43,6 @@ n*|N*)
         ;;
 esac
 
-        ;;
-esac
 printf "现在在用哪个shell？1.bash,2.zsh"
 read -rp "请输入数字：" YS
 printf '是否改变光标样式？[Y/n]'
