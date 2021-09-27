@@ -1,3 +1,22 @@
+printf '是否切换清华源？(如果是请一路回车)[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
+        sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
+        sed -i 's@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@' $PREFIX/etc/apt/sources.list.d/science.list
+        pkg update
+        wait
+        echo "切换清华源成功"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+
 printf '是否修改键位？[Y/n]'
 read -r opt
 case $opt in
@@ -67,40 +86,6 @@ n*|N*)
         ;;
 esac
 
-printf '是否修改键位？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        echo -e "extra-keys-style = all\nextra-keys = [[{key: 'ESC', popup: ':'}, {key: 'TAB', popup: '!'},CTRL, {key: 'UP', popup: 'APOSTROPHE'}, {key: 'DOWN', popup: 'QUOTE'}, {key: 'LEFT', popup: 'HOME'}, {key: 'RIGHT', popup: 'END'}],[{key: '/', popup: '?'}, {key: '|', popup: '&'},{key: 'BACKSLASH',popup: '\`'}, {key: '<', popup: '>'}, {key: '%', popup: ';'}, {key: '[', popup: '{'}, {key: ']', popup: '}'}]]" >> .termux/termux.properties
-        echo "完成"
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
-
-printf '是否切换清华源？(如果是请一路回车)[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
-        sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
-        sed -i 's@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@' $PREFIX/etc/apt/sources.list.d/science.list
-        pkg update
-        wait
-        echo "切换清华源成功"
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
-
 printf '是否安装常用软件包？vim,git,wget,curl,neofetch[Y/n]'
 read -r opt
 case $opt in
@@ -154,7 +139,6 @@ y*|Y*|"")
         echo ' alias web="browser-sync start --server --files "**"" ' >> ~/.zshrc
         else 
         fi
-        ;;
         echo "安装完成,你可以在网页文件夹使用browser-sync快捷建立动态刷新的web服务器,已添加alias别名web"
         ;;
 n*|N*)
