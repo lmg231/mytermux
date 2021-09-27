@@ -115,26 +115,14 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
-printf '是否启用oh-my-termux（需要良好外网环境）？[Y/n]'
-read -r opt
-case $opt in
-y*|Y*|"")
-        echo "请执行下面语句"
-        echo 'sh -c "$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)"'
-        ;;
-n*|N*)
-        echo "跳过"
-        ;;
-*)
-        echo "输入错误，跳过";
-        ;;
-esac
+
 printf '是否导入vim配置？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
-        echo "请执行下面语句"
-        echo 'git clone https://github.com/lmg231/myvim.git'
+        git clone https://github.com/lmg231/myvim.git
+        wait
+        echo "下载完成，请退出脚本后手动进入仓库执行"
         ;;
 n*|N*)
         echo "跳过"
@@ -143,12 +131,27 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
+
 printf '是否安装字体Meslo NerdFont？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
         mv font.ttf ~/.termux
         echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
+printf '是否启用oh-my-termux（需要良好外网环境）？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        echo "请执行下面语句"
+        echo 'sh -c "$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)"'
         ;;
 n*|N*)
         echo "跳过"
