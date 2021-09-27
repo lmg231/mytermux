@@ -147,7 +147,7 @@ printf '是否安装字体Meslo NerdFont？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
-        move font.ttf ~/.termux
+        mv font.ttf ~/.termux
         echo "完成"
         ;;
 n*|N*)
