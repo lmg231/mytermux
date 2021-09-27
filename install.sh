@@ -91,7 +91,7 @@ printf '是否修改键位？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
-        echo -e "extra-keys-style = all\nextra-keys = [[{key: 'ESC', popup: ':'}, {key: 'TAB', popup: '!'},CTRL, {key: 'UP', popup: 'APOSTROPHE'}, {key: 'DOWN', popup: 'QUOTE'}, {key: 'LEFT', popup: 'HOME'}, {key: 'RIGHT', popup: 'END'}],[{key: '/', popup: '?'}, {key: '|', popup: '&'},{key: 'BACKSLASH',popup: '\`'}, {key: '<', popup: '>'}, {key: '%', popup: ';'}, {key: '[', popup: '{'}, {key: ']', popup: '}'}]]" >> ~/.termux/termux.properties
+        echo -e "extra-keys-style = all\nextra-keys = [[ESC,{key: 'BACKSLASH',popup: '^'},{key: '[',popup: '{'},{key: ']',popup: '}'},{key: UP,popup: PGUP},{key: DOWN,popup: PGDN},{key: '$',popup: '\`'}], [CTRL,TAB,{key: '<',popup: 'APOSTROPHE'},{key: '>',popup: 'QUOTE'},{key:LEFT,popup: HOME},{key: RIGHT,popup: END},{key: '%',popup: '/'}]]" >> ~/.termux/termux.properties
         echo "完成"
         ;;
 n*|N*)
@@ -120,7 +120,7 @@ printf '是否导入vim配置？[Y/n]'
 read -r opt
 case $opt in
 y*|Y*|"")
-        git clone https://github.com/lmg231/myvim.git
+        git clone https://github.com/lmg231/myvim.git ~
         wait
         echo "下载完成，请退出脚本后手动进入仓库执行"
         ;;
