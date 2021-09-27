@@ -101,6 +101,20 @@ n*|N*)
         echo "输入错误，跳过";
         ;;
 esac
+printf '是否修改启动提示语？[Y/n]'
+read -r opt
+case $opt in
+y*|Y*|"")
+        echo -e "Welcome to termux!" > $PREFIX/etc/motd
+        echo "完成"
+        ;;
+n*|N*)
+        echo "跳过"
+        ;;
+*)
+        echo "输入错误，跳过";
+        ;;
+esac
 printf '是否启用oh-my-termux（需要良好外网环境）？[Y/n]'
 read -r opt
 case $opt in
